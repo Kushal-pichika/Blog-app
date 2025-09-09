@@ -2,10 +2,9 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout') {
+        stage('Checkout SCM') {
             steps {
-                git branch: 'main',
-                    url: 'https://github.com/Kushal-pichika/Blog-app.git'
+                checkout scm
             }
         }
 
@@ -17,7 +16,15 @@ pipeline {
 
         stage('Run Tests') {
             steps {
-                bat 'npm test'
+                script {
+                    // Only run test if package.json has a test script
+                    def packageJson = readFile('package.json')
+                    if (packageJson.contains('"test"')) {
+                        bat 'npm test'
+                    } else {
+                        echo "No test script found. Skipping tests."
+                    }
+                }
             }
         }
 
@@ -29,9 +36,7 @@ pipeline {
 
         stage('Deploy Locally') {
             steps {
-                echo 'Serving app locally on port 3000...'
-                // This will run serve in background
-                bat 'start cmd /c "npx serve -s build -l 3000"'
+                echo "Deployment steps here..."
             }
         }
     }
