@@ -8,6 +8,6 @@ export default defineConfig({
   server: {
     host: true, // allows external access
     port: 3000, // or your app port
-    allowedHosts: 'all', // allow all hosts (including ngrok)
+    allowedHosts: true, // allow all hosts (including ngrok)
   }
 });
