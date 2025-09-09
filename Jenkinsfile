@@ -11,23 +11,23 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                sh 'npm install'
+                bat 'npm install'
             }
         }
 
         stage('Build React App') {
             steps {
-                sh 'npm run build'
+                bat 'npm run build'
             }
         }
 
         stage('Deploy Locally') {
             steps {
                 // Kill existing "serve" if running
-                sh 'pkill -f "serve -s build" || true'
+                bat 'pkill -f "serve -s build" || true'
 
                 // Start serving build on port 3000
-                sh 'nohup serve -s build -l 3000 > frontend.log 2>&1 &'
+                bat 'nohup serve -s build -l 3000 > frontend.log 2>&1 &'
             }
         }
     }
