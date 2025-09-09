@@ -15,6 +15,12 @@ pipeline {
             }
         }
 
+        stage('Run Tests') {
+            steps {
+                bat 'npm test'
+            }
+        }
+
         stage('Build React App') {
             steps {
                 bat 'npm run build'
@@ -23,11 +29,9 @@ pipeline {
 
         stage('Deploy Locally') {
             steps {
-                // Kill existing "serve" if running
-                bat 'pkill -f "serve -s build" || true'
-
-                // Start serving build on port 3000
-                bat 'nohup serve -s build -l 3000 > frontend.log 2>&1 &'
+                echo 'Serving app locally on port 3000...'
+                // This will run serve in background
+                bat 'start cmd /c "npx serve -s build -l 3000"'
             }
         }
     }
