@@ -9,7 +9,7 @@ export default function Home() {
         transition={{ duration: 0.7 }}
         className="text-5xl font-extrabold text-purple-600"
       >
-        Welcome to My Blog app !!
+        Welcome to My Blogging app !!
       </motion.h1>
       <p className="mt-6 text-lg text-gray-700">
         Share your thoughts, read amazing stories, and connect with others.
